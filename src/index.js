@@ -46,19 +46,21 @@ function decode(expr) {
         if(element === '**********') {
             intArr.push(' ')
         } else {
-            
             elem = element.match(/.{1,2}/g);
 
             let int = []
             
             elem.forEach(element => {
-                if(element === '00') {
-                    int.push('')
-                } else if(element === '10') {
-                    int.push('.')
-                    console.log(int)
-                } else if(element === '11') {
-                    int.push('-')
+                switch (element) {
+                    case '00':
+                        int.push('')
+                        break;
+                    case '10':
+                        int.push('.')
+                        break;
+                    case '11':
+                        int.push('-')
+                        break;
                 }
             })
             
@@ -66,17 +68,16 @@ function decode(expr) {
         }
     });
     
-    string = []
-    for(let i = 0; i < intArr.length; i++) {
-        if(intArr[i] === ' ') {
-            string.push(' ')
-        } else {
-            string.push(MORSE_TABLE[intArr[i]])
-        }
-        
-    }
+    stringArr = []
 
-    return string.join('')
+    intArr.forEach(elem => {
+        if(elem  === ' ') {
+            stringArr.push(' ')
+        } else {
+            stringArr.push(MORSE_TABLE[elem])
+        }
+    })
+    return stringArr.join('')
 }
 
 module.exports = {
